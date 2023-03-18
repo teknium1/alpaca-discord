@@ -26,7 +26,7 @@ async def on_message(message):
     if message.author == client.user:
         return
 
-    if client.user.mentioned_in(message):
+    if isinstance(message.channel, discord.channel.DMChannel) or client.user.mentioned_in(message):
         queue.put(message)
         if queue.qsize() == 1:
             await generate_response()
