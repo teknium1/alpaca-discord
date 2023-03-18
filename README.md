@@ -59,6 +59,9 @@ You can customize the following parameters in the script to change the behavior 
 - `top_k`: Set the number of tokens to consider for top-k sampling. Default is `40`.
 
 ## Credits, License, Etc.
+While my repo may be licensed as MIT, the underlying code, libraries, and other portions of this repo may not be. Please DYOR to check what can
+and can't be used and in what ways it may or may not be. If anyone can help me with proper attributions or licensing placement, please submit a PR
+
 This would not be possible without the people of Facebook's Research Team: FAIR, and with Stanford's Research:
 <pre>
 @misc{alpaca,
