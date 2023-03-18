@@ -40,13 +40,15 @@ The bot uses the `discord.py` library for interacting with Discord's API and the
 4. It listens for messages and adds them to the queue if the bot is mentioned.
 5. It processes the queue to generate responses based on the text.
 6. It sends the generated response to the channel where the original message was sent.
-[todo] Implement memory capabilities, particularly if it is replied to, so that it will know what message of it's your replying to in-context 
+[todo] Implement memory capabilities, particularly if it is replied to, so that it will know what message of it's your replying to in-context
+[todo] Implement pre-made characters/personalities/modalities?
 
 ## How to run the bot
 1. Ensure you have the required dependencies installed.
 2. Create a Discord bot account and obtain its API key. Save the key to a file named `alpacakey.txt` in the same directory as the bot's script.
 3. Make sure the Llama tokenizer and Llama model are stored in a local `./alpaca/` directory.
 Your alpaca directory should have all of these files:
+
 ![image](https://user-images.githubusercontent.com/127238744/226094774-a5371a98-947b-47a4-a4b2-f56e6331ee1e.png)
 4. Run the script using Python:
 `python alpaca_bot.py`
