@@ -4,7 +4,10 @@ A Simple Discord Bot for the Alpaca LLM
 # Alpaca Discord Bot README
 
 ## Overview
-Alpaca-Discord is a software project for running the Alpaca (or LLaMa) Large Language Model as a discord bot. The bot is designed to run locally on a PC with as little as 10GB of VRAM. The bot listens for messages mentioning its username, processes the message content, and generates a response based on the input. I am definitely open to Pull Requests and other contributions if anyone who likes the bot wants to collaborate on adding new features, making it more robust, etc.
+Alpaca-Discord is a software project for running the Alpaca (or LLaMa) Large Language Model as a discord bot. The bot is designed to run locally on a PC with as little as 10GB of VRAM. The bot listens for messages mentioning its username, processes the message content, and generates a response based on the input.
+
+I am definitely open to Pull Requests and other contributions if anyone who likes the bot wants to collaborate on adding new features, making it more robust, etc.
+
 Example:
 ![image](https://user-images.githubusercontent.com/127238744/226094603-5f4a1291-6af6-435a-b6b0-f9bfce21dabe.png)
 
