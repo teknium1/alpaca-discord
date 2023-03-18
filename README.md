@@ -18,9 +18,13 @@ To run the bot, you need the following Python packages:
 - `transformers`
 - `torch`
 
-You can install discord and transformers using pip:
+You can install discord using pip:
 
 `pip install discord transformers`
+
+Currently, Transformers module only has support for Llama through the latest github repository, and not through pip package. Install it like so:
+
+`pip install git+https://github.com/huggingface/transformers.git`
 
 For Pytorch you need to install it with cuda enabled. See here for commands specific to your environment: https://pytorch.org/get-started/locally/
 
