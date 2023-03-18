@@ -33,7 +33,10 @@ async def on_message(message):
 
 async def generate_response():
     message = queue.get()
-    text = generate_prompt(message.content.replace("@Alpaca ", "").replace("<@1086483646946496573> ", ""))
+    username = client.user.name
+    user_id = client.user.id
+    message_content = message.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
+    text = generate_prompt(message_content)
     input_ids = tokenizer(text, return_tensors="pt").input_ids.to("cuda")
     generated_ids = model.generate(input_ids, max_new_tokens=250, do_sample=True, repetition_penalty=1.0, temperature=0.8, top_p=0.75, top_k=40)
     response = tokenizer.decode(generated_ids[0])
