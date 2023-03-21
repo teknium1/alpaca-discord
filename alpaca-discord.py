@@ -51,7 +51,7 @@ async def background_task():
         msg, past = msg_pair
 
         username = client.user.name
-        user_id = client.author.id
+        user_id = client.user.id
         message_content = msg.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
         past_content = None
         if past:
