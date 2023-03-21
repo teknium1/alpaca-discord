@@ -1,5 +1,6 @@
+from concurrent.futures import ThreadPoolExecutor
 import discord, torch
-from queue import Queue
+import asyncio
 from transformers import LlamaTokenizer, LlamaForCausalLM
 
 intents = discord.Intents.default()
@@ -10,46 +11,65 @@ tokenizer = LlamaTokenizer.from_pretrained("./alpaca/")
 
 model = LlamaForCausalLM.from_pretrained(
     "alpaca",
-    load_in_8bit=False,
+    load_in_8bit=True,
     torch_dtype=torch.float16,
     device_map="auto"
 )
 
-queue = Queue()
+queue = asyncio.Queue()
 
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}")
+    asyncio.get_running_loop().create_task(background_task())
 
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
 
-    if isinstance(message.channel, discord.channel.DMChannel) or client.user.mentioned_in(message):
-        queue.put(message)
-        if queue.qsize() == 1:
-            await generate_response()
+    if isinstance(message.channel, discord.channel.DMChannel) or (client.user and client.user.mentioned_in(message)):
+        if message.reference:
+            pastMessage = await message.channel.fetch_message(message.reference.message_id)
+        else:
+            pastMessage = None
+        await queue.put((message, pastMessage))
 
-async def generate_response():
-    message = queue.get()
-    username = client.user.name
-    user_id = client.user.id
-    message_content = message.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
-    text = generate_prompt(message_content)
-    input_ids = tokenizer(text, return_tensors="pt").input_ids.to("cuda")
-    generated_ids = model.generate(input_ids, max_new_tokens=250, do_sample=True, repetition_penalty=1.0, temperature=0.8, top_p=0.75, top_k=40)
+def sync_task(message):
+    input_ids = tokenizer(message, return_tensors="pt").input_ids.to("cuda")
+    generated_ids = model.generate(input_ids, max_new_tokens=250, do_sample=True, repetition_penalty=1.3, temperature=0.8, top_p=0.75, top_k=40)
     response = tokenizer.decode(generated_ids[0])
+    response = response.replace(message, "")
+    return response
 
-    await message.channel.send(response.replace(text, ""))
-    if not queue.empty():
-        await generate_response()
+async def background_task():
+    executor = ThreadPoolExecutor(max_workers=1)
+    loop = asyncio.get_running_loop()
+    print("Task Started. Waiting for inputs.")
+    while True:
+        msg_pair: tuple[discord.Message, discord.Message] = await queue.get()
+        msg, past = msg_pair
 
-def generate_prompt(text):
-    return f"""Below is an instruction that describes a task. Write a response that appropriately completes the request.
-    ### Instruction:
-    {text}
-    ### Response:"""
+        username = msg.author.name
+        user_id = msg.author.id
+        message_content = msg.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
+        past_content = None
+        if past:
+            past_content = past.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
+        text = generate_prompt(message_content, past_content)
+        response = await loop.run_in_executor(executor, sync_task, text)
+        print(f"Response: {text}\n{response}")
+        await msg.reply(response)
+
+def generate_prompt(text, pastMessage):
+    if pastMessage:
+        return f"""### Instruction:
+        Your previous response you gave to the prior instruction: {pastMessage} - Current instruction to respond to: {text}
+        ### Response:"""
+    else:
+        return f"""### Instruction:
+        {text}
+        ### Response:"""
 
 #Load the API key from alpacakey.txt
 with open("alpacakey.txt", "r") as f:
