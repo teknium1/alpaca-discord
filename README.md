@@ -40,8 +40,10 @@ The bot uses the `discord.py` library for interacting with Discord's API and the
 3. It initializes a queue to manage incoming messages mentioning the bot.
 4. It listens for messages and adds them to the queue if the bot is mentioned.
 5. It processes the queue to generate responses based on the text.
-6. It sends the generated response to the channel where the original message was sent.
+6. It sends the generated response to the channel where the original message was sent. 
+
 [todo] Implement memory capabilities, particularly if it is replied to, so that it will know what message of it's your replying to in-context
+
 [todo] Implement pre-made characters/personalities/modalities?
 
 ## How to run the bot
