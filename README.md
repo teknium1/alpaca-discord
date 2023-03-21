@@ -82,8 +82,11 @@ This would not be possible without the people of Facebook's Research Team: FAIR,
   howpublished = {\url{https://github.com/tatsu-lab/stanford_alpaca}},
 }
 </pre>
-In addition, I would like to thank @Main - https://twitter.com/main_horse - for helping with getting the initial inferencing code working
+
+@Ristellise - https://github.com/Ristellise - For converting the code to be fully async and non-blocking
+
+@Main - https://twitter.com/main_horse - for helping with getting the initial inferencing code working
 
 You can find me on Twitter - @Teknium1 - https://twitter.com/Teknium1
 
-Final thanks go to GPT-4, for doing much of the heavy lifting for creating both the discord bot code, and writing a large portion of this readme! 
+Final thanks go to GPT-4, for doing much of the heavy lifting for creating both the original discord bot code, and writing a large portion of this readme! 
