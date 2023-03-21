@@ -50,8 +50,8 @@ async def background_task():
         msg_pair: tuple[discord.Message, discord.Message] = await queue.get()
         msg, past = msg_pair
 
-        username = msg.author.name
-        user_id = msg.author.id
+        username = client.user.name
+        user_id = client.author.id
         message_content = msg.content.replace(f"@{username} ", "").replace(f"<@{user_id}> ", "")
         past_content = None
         if past:
@@ -59,7 +59,7 @@ async def background_task():
         text = generate_prompt(message_content, past_content)
         response = await loop.run_in_executor(executor, sync_task, text)
         print(f"Response: {text}\n{response}")
-        await msg.reply(response)
+        await msg.reply(response, mention_author=False)
 
 def generate_prompt(text, pastMessage):
     if pastMessage:
