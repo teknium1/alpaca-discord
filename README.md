@@ -40,8 +40,10 @@ The bot uses the `discord.py` library for interacting with Discord's API and the
 3. It initializes a queue to manage incoming messages mentioning the bot.
 4. It listens for messages and adds them to the queue if the bot is mentioned.
 5. It processes the queue to generate responses based on the text.
-6. It sends the generated response to the channel where the original message was sent.
+6. It sends the generated response to the channel where the original message was sent. 
+
 [todo] Implement memory capabilities, particularly if it is replied to, so that it will know what message of it's your replying to in-context
+
 [todo] Implement pre-made characters/personalities/modalities?
 
 ## How to run the bot
@@ -82,8 +84,11 @@ This would not be possible without the people of Facebook's Research Team: FAIR,
   howpublished = {\url{https://github.com/tatsu-lab/stanford_alpaca}},
 }
 </pre>
-In addition, I would like to thank @Main - https://twitter.com/main_horse - for helping with getting the initial inferencing code working
+
+@Ristellise - https://github.com/Ristellise - For converting the code to be fully async and non-blocking
+
+@Main - https://twitter.com/main_horse - for helping with getting the initial inferencing code working
 
 You can find me on Twitter - @Teknium1 - https://twitter.com/Teknium1
 
-Final thanks go to GPT-4, for doing much of the heavy lifting for creating both the discord bot code, and writing a large portion of this readme! 
+Final thanks go to GPT-4, for doing much of the heavy lifting for creating both the original discord bot code, and writing a large portion of this readme! 
