@@ -38,8 +38,7 @@ async def on_message(message):
 def sync_task(message):
     input_ids = tokenizer(message, return_tensors="pt").input_ids.to("cuda")
     generated_ids = model.generate(input_ids, max_new_tokens=250, do_sample=True, repetition_penalty=1.3, temperature=0.8, top_p=0.75, top_k=40)
-    response = tokenizer.decode(generated_ids[0])
-    response = response.replace(message, "")
+    response = tokenizer.decode(generated_ids[0][input_ids.shape[-1]:])
     return response
 
 async def background_task():
@@ -68,8 +67,8 @@ def generate_prompt(text, pastMessage):
         ### Response:"""
     else:
         return f"""### Instruction:
-        {text}
-        ### Response:"""
+    {text}
+    ### Response:"""
 
 #Load the API key from alpacakey.txt
 with open("alpacakey.txt", "r") as f:
