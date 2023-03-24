@@ -24,7 +24,7 @@ To run the bot, you need the following Python packages:
 
 You can install discord using pip:
 
-`pip install discord transformers`
+`pip install discord`
 
 Currently, Transformers module only has support for Llama through the latest github repository, and not through pip package. Install it like so:
 
