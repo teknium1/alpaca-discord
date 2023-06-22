@@ -63,14 +63,14 @@ async def background_task():
 def generate_prompt(text, pastMessage):
     if pastMessage:
         return f"""### Instruction:
-        Your previous response to the prior instruction: {pastMessage}
+Your previous response to the prior instruction: {pastMessage}
         
-        Current instruction to respond to: {text}
-        ### Response:"""
+Current instruction to respond to: {text}
+### Response:"""
     else:
         return f"""### Instruction:
-    {text}
-    ### Response:"""
+{text}
+### Response:"""
 
 #Load the API key from alpacakey.txt
 with open("alpacakey.txt", "r") as f:
